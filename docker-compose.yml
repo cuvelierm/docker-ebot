@@ -12,12 +12,12 @@ ebot:
     - /opt/docker/ebot/logs:/ebot/logs
     - /opt/docker/ebot/demos:/ebot/demos
   environment:
-    EXTERNAL_IP: 'xxx.xxx.xxx.xxx'
+    EXTERNAL_IP: ${SERVER_IP}
     MYSQL_HOST: 'mysql'
     MYSQL_PORT: '3306'
     MYSQL_DB: 'ebotv3'
-    MYSQL_USER: 'ebotv3'
-    MYSQL_PASS: 'ebotv3'
+    MYSQL_USER: ${MYSQL_USER}
+    MYSQL_PASS: ${MYSQL_PASS}
     LO3_METHOD: 'restart'
     KO3_METHOD: 'restart'
     DEMO_DOWNLOAD: 'true'
@@ -27,8 +27,6 @@ ebot:
     NODE_STARTUP_METHOD: 'node'
     USE_DELAY_END_RECORD: 'true'
     TOORNAMENT_PLUGIN_KEY: ''
-  env_file:
-     - ./.env
 
 ebotweb:
   image: hsfactory/ebotweb
@@ -41,24 +39,22 @@ ebotweb:
     - /opt/docker/ebot/demos:/opt/ebot/demos
     - /opt/docker/ebot/logs:/opt/ebot/logs
   environment:
-    EBOT_IP: 'xxx.xxx.xxx.xxx'
+    EBOT_IP: '127.0.0.1'
     EBOT_PORT: '12360'
-    EBOT_ADMIN_USER: 'admin'
-    EBOT_ADMIN_PASS: 'password'
-    EBOT_ADMIN_MAIL: ''
+    EBOT_ADMIN_USER: ${EBOT_ADMIN_USER}
+    EBOT_ADMIN_PASS: ${EBOT_ADMIN_PASS}
+    EBOT_ADMIN_MAIL: ${EBOT_ADMIN_MAIL}
     MYSQL_HOST: 'mysql'
     MYSQL_PORT: '3306'
     MYSQL_DB: 'ebotv3'
-    MYSQL_USER: 'ebotv3'
-    MYSQL_PASS: 'ebotv3'
+    MYSQL_USER: ${MYSQL_USER}
+    MYSQL_PASS: ${MYSQL_PASS}
     DEMO_DOWNLOAD: 'true'
     DEFAULT_RULES: 'esl5on5'
     TOORNAMENT_ID: ''
     TOORNAMENT_SECRET: ''
     TOORNAMENT_API_KEY: ''
     TOORNAMENT_PLUGIN_KEY: ''
-  env_file:
-     - ./.env
 
 mysql:
   image: mysql:5.7
@@ -71,10 +67,8 @@ mysql:
     - "3306"
   environment:
     - MYSQL_DATABASE=ebotv3
-    - MYSQL_USER=ebotv3
-    - MYSQL_PASSWORD=ebotv3
-    - MYSQL_ROOT_PASSWORD=MyAwesomePassword
+    - MYSQL_USER=${MYSQL_USER}
+    - MYSQL_PASSWORD=${MYSQL_PASS}
+    - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     - MYSQL_ROOT_HOST=%
   command: mysqld --sql_mode="NO_ENGINE_SUBSTITUTION"
-  env_file:
-     - ./.env
