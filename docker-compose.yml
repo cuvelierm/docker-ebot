@@ -27,6 +27,8 @@ ebot:
     NODE_STARTUP_METHOD: 'node'
     USE_DELAY_END_RECORD: 'true'
     TOORNAMENT_PLUGIN_KEY: ''
+  env_file:
+    - ./.env
 
 ebotweb:
   image: hsfactory/ebotweb
@@ -55,7 +57,9 @@ ebotweb:
     TOORNAMENT_SECRET: ''
     TOORNAMENT_API_KEY: ''
     TOORNAMENT_PLUGIN_KEY: ''
-
+  env_file:
+    - ./.env
+    
 mysql:
   image: mysql:5.7
   restart: always
@@ -72,3 +76,5 @@ mysql:
     - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     - MYSQL_ROOT_HOST=%
   command: mysqld --sql_mode="NO_ENGINE_SUBSTITUTION"
+  env_file:
+    - ./.env
